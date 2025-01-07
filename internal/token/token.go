@@ -2,10 +2,15 @@ package token
 
 type TokenType string
 
+type Position struct {
+	Row int
+	Col int
+}
+
 type Token struct {
 	Type    TokenType
+	Pos     *Position
 	Literal string
-	Pos     int
 }
 
 const (
@@ -17,8 +22,14 @@ const (
 
 	ASSIGN    = "="
 	PLUS      = "+"
+	MINUS     = "-"
+	BANG      = "!"
+	ASTERISK  = "*"
+	SLASH     = "/"
 	COMMA     = ","
 	SEMICOLON = ";"
+	LT        = "<"
+	GT        = ">"
 
 	LPAREN = "("
 	RPAREN = ")"
@@ -27,11 +38,24 @@ const (
 
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
+
+	EQ     = "=="
+	NOT_EQ = "!="
 )
 
 var keywords = map[string]TokenType{
-	"fn":  FUNCTION,
-	"let": LET,
+	"fn":     FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
+	"return": RETURN,
 }
 
 func LookupIdent(ident string) TokenType {
