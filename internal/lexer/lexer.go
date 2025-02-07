@@ -86,6 +86,14 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+	case '"':
+		tok.Type = token.STRING
+		tok.Pos = &token.Position{Row: l.Row, Col: l.Col}
+		tok.Literal = l.readString()
+	case '[':
+		tok = newToken(token.LBRACKET, l)
+	case ']':
+		tok = newToken(token.RBRACKET, l)
 	default:
 		if isLetter(l.ch) {
 			tok.Pos = &token.Position{Row: l.Row, Col: l.Col}
@@ -152,4 +160,17 @@ func (l *Lexer) peekChar() byte {
 	} else {
 		return l.input[l.readPosition]
 	}
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+
+	for {
+		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+
+	return l.input[position:l.position]
 }
