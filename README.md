@@ -5,5 +5,5 @@ mainly for the purpose of rewriting [Univer](https://github.com/dream-num/univer
 
 Made some changes to the original code:
 
-1. Use go.mod to manage the module and packages.
+1. Use go.mod to manage the packages.
 2. Add position info to tokens.
