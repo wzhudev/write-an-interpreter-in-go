@@ -94,6 +94,8 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LBRACKET, l)
 	case ']':
 		tok = newToken(token.RBRACKET, l)
+	case ':':
+		tok = newToken(token.COLON, l)
 	default:
 		if isLetter(l.ch) {
 			tok.Pos = &token.Position{Row: l.Row, Col: l.Col}
